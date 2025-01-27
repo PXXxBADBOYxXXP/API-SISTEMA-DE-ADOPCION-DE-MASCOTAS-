@@ -1,0 +1,19 @@
+{
+  "name": "adoptionsystem",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+
+  },
+  "keywords": [],
+  "author": "Marco Bolaños",
+  "license": "ISC",
+  "type": "module",
+  "description": "API oara la gestion de adopcion de las mascotas",
+  "dependencies": {
+    "adoptionsystem": "file:"
+  }
+}
