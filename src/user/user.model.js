@@ -1,9 +1,20 @@
-import mongoose from "mongoose";
+import { Schema, model} from "mongoose"
 
-const UserSchema = mongoose.Schema({
+const userSchema = Schema({
     name:{
         type: String,
-        required: [true, "NAME IS REQUIRED"]
+        required: [true, "NAME IS REQUIRED"],
+        maxLength: [25, "NAME CANNOT EXCEED 25 CHARACTERS"]
+    },
+    surname:{
+        type: String,
+        required: [true, "NAME IS REQUIRED"],
+        maxLength: [25, "NAME CANNOT EXCEED 25 CHARACTERS"]
+    },
+    username:{
+        type: String,
+        required: true,
+        unique: true
     },
     email:{
         type: String,
@@ -13,6 +24,9 @@ const UserSchema = mongoose.Schema({
     password:{
         type: String,
         required: [true, "PASSWORD IS REQUIRED"]
+    },
+    profilePicture:{
+        type: String
     },
     phone:{
         type: String,
@@ -28,7 +42,7 @@ const UserSchema = mongoose.Schema({
     status:{
         type: Boolean,
         default: true
-    }
+    },
 })
 
-export default mongoose.model("User", UserSchema)
+export default model("User", userSchema)
