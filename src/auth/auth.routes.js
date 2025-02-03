@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { register } from "./auth.controller.js";
-import { registerValidator } from "../middlewares/validators.js";
+import { login, register } from "./auth.controller.js";
+import { registerValidator, loginValidator } from "../middlewares/validators.js";
 import { uploadProfilePicture } from "../middlewares/multer-uploads.js";
 import { deleteFileOnError } from "../middlewares/delete-file-on-errors.js";
 
@@ -10,8 +10,14 @@ router.post(
     uploadProfilePicture.single("profilePicture"),
     registerValidator,
     deleteFileOnError,
-     register
+    register
     )
 
+    router.post(
+        "/Login",
+        loginValidator,
+        deleteFileOnError,
+        login
+    )
 
 export default router

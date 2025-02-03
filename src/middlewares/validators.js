@@ -1,6 +1,7 @@
-import {body} from "express-validator";
-import {emailExists, usernameExists} from "../helpers/db-validators.js";
+import {body, check} from "express-validator";
+import {emailExists, usernameExists, userExists} from "../helpers/db-validators.js";
 import { validarCampos } from "./validar-campos.js";
+import { deleteFileOnError } from "./delete-file-on-errors.js";
 
 export const registerValidator = [
     body("name").not().isEmpty().withMessage("USER IS REQUIRED"),
@@ -19,4 +20,33 @@ export const registerValidator = [
     }),
     */
     validarCampos
+]
+
+export const loginValidator = [
+    body("email").optional().isEmail().withMessage("INVALID EMAIL"),
+    body("username").optional().isString().withMessage("IVALID USERNAME"),
+    body("password").isLength({min:8}).withMessage("LA CONTRASEÑA DEBE CONTENER AL MENOS 8 CARACTERES"),
+    validarCampos
+]
+
+export const getUserByIdValidator = [
+    check("uid").isMongoId().withMessage("NO ES UN ID VALIDO"),
+    check("uid").custom(userExists),
+    validarCampos,
+    deleteFileOnError
+]
+
+export const deleteUserValidator = [
+    check("uid").isMongoId().withMessage("NO ES UN ID VALIDO"),
+    check("uid").custom(userExists),
+    validarCampos,
+    deleteFileOnError
+]
+
+export const updatePasswordValidator = [
+    check("uid").isMongoId().withMessage("NO ES UN ID VALIDO"),
+    check("uid").custom(userExists),
+    body("newPassword").isLength({min: 8}).withMessage("EL PASSWORD DEBE CONTENER AL MENOS 8 CARACTERES"),
+    validarCampos,
+    deleteFileOnError
 ]

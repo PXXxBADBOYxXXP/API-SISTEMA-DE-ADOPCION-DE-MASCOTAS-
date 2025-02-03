@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken"
 
-export const generateJWT = (uid = "", email = "") =>{
+export const generateJWT = (uid =  "") =>{
     return new Promise((resolve, reject) =>{
-        const payload = {uid, email}
+        const payload = {uid}
 
         jwt.sign(
             payload,
@@ -10,12 +10,19 @@ export const generateJWT = (uid = "", email = "") =>{
             {
                 expiresIn: "1h"
             },
-            (e, token) =>{
-                
+            (err, token) =>{
+                if(err){
+                    reject({
+                        success: false,
+                        message: err
+                    })
+                }else{
+                    resolve(token)
+                }
             }
         )
         
     })
 
-
+    
 }

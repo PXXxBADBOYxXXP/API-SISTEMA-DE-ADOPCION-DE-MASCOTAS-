@@ -10,6 +10,13 @@ export const emailExists = async (email = "") =>{
 export const usernameExists = async (username = "") => {
     const existe = await User.findOne({username})
     if(existe){
-        throw new Error(`THE EMAIL ${username} IS ALREADY REGISTERED`)
+        throw new Error(`THE USERNAME ${username} IS ALREADY REGISTERED`)
+    }
+}
+
+export const userExists = async (uid = "") =>{
+    const existe = await User.findById(uid)
+    if(!existe){
+        throw new Error("NO EXISTE EL USUARIO CON EL ID PROPORCIONADO")
     }
 }
